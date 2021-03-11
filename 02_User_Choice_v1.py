@@ -1,27 +1,28 @@
 #functions go here
-def choice_checker(queation):
+def choice_checker(question):
 
-  error = "Please choose from rock / paper /" \
-  " scissors (or xxx to quit)"
+    error = "Please choose from rock / paper /" \
+              " scissors (or xxx to quit)"
 
-  valid = False
-  white not valid:
 
-      # ask user for choice (and put choice in lowercase)
-      response = input(question).lower()
+    valid = False
+    while not valid:
 
-      if response == "r" or response == "rock":
-          return response
-      elif response == "p" or response == "paper":
-        return response
-      elif response == "s" or response == "scissors":
-        return response
+        # ask user for choice (and put choice in lowercase)
+        response = input(question).lower()
 
-      # check for exit code...
-      elif response == "xxx":
-         return response
-      else:
-          print(error)
+        if response == "r" or response == "rock":
+            return response
+        elif response == "p" or response == "paper":
+            return response
+        elif response == "s" or response == "scissors":
+            return response
+
+        # check for exit code...
+        elif response == "xxx":
+            return response
+        else:
+            print(error)
 
 # Main routine goes here
 
@@ -32,5 +33,9 @@ while user_choice != "xxx":
 
     # ask user for choice and check its valid
     user_choice = choice_checker("Choose rock / paper / "
-                                  "scissors (r/p/s): ")
+                                 "scissors (r/p/s): ")
+
+    # print out choice for comparison purposes
+    print("You chose {}".format(user_choice))
+
     
