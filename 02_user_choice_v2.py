@@ -1,7 +1,7 @@
 # Version 2 - error message included when calling function
 
 #functions go here
-def choice_checker(question):
+def choice_checker(question, error_txt):
 
 
     valid = False
@@ -11,17 +11,17 @@ def choice_checker(question):
         response = input(question).lower()
 
         if response == "r" or response == "rock":
-            return response
+            return "rock"
         elif response == "p" or response == "paper":
-            return response
+            return "paper"
         elif response == "s" or response == "scissors":
-            return response
+            return "scissors"
 
         # check for exit code...
         elif response == "xxx":
             return response
         else:
-            print(error)
+            print(error_txt)
 
 # Main routine goes here
 
@@ -33,8 +33,7 @@ while user_choice != "xxx":
     # ask user for choice and check its valid
     user_choice = choice_checker("Choose rock / paper / "
                                  "scissors (r/p/s): ",
-                                 "Please choose fom rock / "
-                                 "paper / scisssors "
+                                 "Please choose from rock / paper / scisssors "
                                  "(or xxx to quit) ")
 
     # print out choice for comparison purposes
