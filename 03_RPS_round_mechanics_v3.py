@@ -1,8 +1,8 @@
-# Funcion used to check input is valid
+# Main routine more effecient than v2
 
 def check_rounds():
     while True:
-       response = input("How many rounds: ")
+       response = input("How many rounds? ")
 
        round_error = "Please type either <enter> " \
                     "or an integer that is more than 0"
@@ -52,11 +52,7 @@ while end_game == "no":
         break
 
     # **** rest if loop / game ****
-    else:
-        heading = "Round {} of {}".format(rounds_played + 1, rounds)
-        print(heading)
-        choose = input(choose_instruction)
-        if rounds_played == rounds - 1:
+    elif rounds_played == rounds - 1:
             end_game = "yes"
 
 
