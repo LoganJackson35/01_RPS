@@ -23,6 +23,7 @@ def check_rounds():
 
 def choice_checker(question, valid_list, error_txt):
 
+
     valid = False
     while not valid:
 
@@ -41,7 +42,6 @@ def choice_checker(question, valid_list, error_txt):
         print(error_txt)
         print()
 
-
 # Main routine goes here
 
 # lists of valid responses
@@ -54,15 +54,20 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 # ask users for # of rounds then loop...
 rounds_played = 0
 
+# initialise lost / drawn counters
+rounds_lost = 0
+rounds_drawn = 0
+rounds_won = 0
 # Ask user for # of rounds. <enter> for infinite mode
-
 rounds = check_rounds()
 
 end_game = "no"
 while end_game == "no":
 
     # Start of Game Play loop
-
+    if rounds != "" and rounds_played == rounds - 1:
+        end_game = "yes"
+        
     # Rounds heading
     print()
     if rounds == "":
@@ -73,32 +78,70 @@ while end_game == "no":
                   "{}".format(rounds_played + 1, rounds)
 
     print(heading)
-    
- 
+    print()
+    choose_instruction = "Please choose rock (r), paper " \
+                         "(p) or scissors (s)" \
+                         "or 'xxx to exit: "
+
+    choose_error = "Please choose from rock / " \
+                   "paper / scissors ( or xxx to quit)"
+  
     # ask user for choice and check its valid
-    choose = choice_checker("Choose from rock / paper / scissors (r/p/s) ",
-    rps_list, "Please choose from rock / paper / scissors (or xxx to  quit) ") 
-
-    print("choice: ", choose)
-
-                        
-
+    choose = choice_checker(choose_instruction, rps_list,
+                            choose_error)
+    print()
+    print("You chose {}".format(choose))
+    print()
+    
     # End game if exit code is typed
     if choose == "xxx":
         break
+    else:
+      rounds_played += 1
 
-    # **** rest if loop / game ****
-    elif rounds != "" and rounds_played == rounds - 1:
-            end_game = "yes"
+    if rounds == rounds_played:
+      break
+        
+    # Get computer choice
 
-
-    # rest of loop / game
-    print("You chose {}".format(choose))
-
-    rounds_played += 1
-
-print("Thank you for playing")
-                
-
-
+    comp_choice = random.choice(rps_list[:-1])
+    print("Comp Choice: ", comp_choice)
     
+    # Compare choices
+    if comp_choice == choose:
+        result = "tie"
+        feedback = "It's a tie"
+        rounds_drawn += 1
+    elif choose == "rock" and comp_choice == "scissors":
+        result = "won"
+    elif choose == "paper" and comp_choice == "rock":
+        result = "won"
+    elif choose == "scissors" and comp_choice == "paper":
+        result = "won"
+        rounds_won += 1
+    else:
+       result = "lost"
+       rounds_lost += 1
+       
+    if result != "tie":
+      feedback = "{} vs {}  - you {}".format(choose, comp_choice, result)
+
+    print()
+    print("Won: {}, lost: {}, drawn: {}".format(rounds_won, rounds_lost, rounds_drawn))
+
+    # output results...
+    print(feedback)
+    
+
+
+
+# Quick Calculations (stats)
+rounds_won = rounds_played - rounds_lost - rounds_drawn
+
+# end of game statements 
+print()
+print('***** End Game Summary *****')
+print("Won: {} \t|\t Lost: {} \t|\t Draw:"
+"{}".format(rounds_won, rounds_lost, rounds_drawn))
+print()
+print("Thank you for playing")

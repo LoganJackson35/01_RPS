@@ -53,8 +53,7 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # ask users for # of rounds then loop...
 rounds_played = 0
-choose_instruction = "please choose rock (r), paper " \
-                     "(p) or scissors (s)"
+
 
 # Ask user for # of rounds. <enter> for infinite mode
 rounds = check_rounds()
@@ -85,15 +84,18 @@ while end_game == "no":
     # ask user for choice and check its valid
     choose = choice_checker(choose_instruction, rps_list,
                             choose_error)
-    
-    # Get computer choice
-
-    #Compare choices
-
-
-    # End game if exit code is typed
+     # End game if exit code is typed
     if choose == "xxx":
         break
+    # Get computer choice
+
+    comp_choice = random.choice(rps_list[:-1])
+    print("Comp Choice: ", comp_choice)
+    
+    # Compare choices
+
+
+
 
     # **** rest if loop / game ****
     elif rounds != "" and rounds_played == rounds - 1:
