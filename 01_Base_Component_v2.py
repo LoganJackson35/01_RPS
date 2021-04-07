@@ -44,18 +44,17 @@ def choice_checker(question, valid_list, error_txt):
 
 def instructions():
 
-    print("Instructions ")
+    print(" How to play ")
     print()
-    print("Pick how many rounds that you would like to play, pick a number bigger than 0 ")
-    print("or press <Enter> for continuous mode ")
+    print(" Pick how many rounds that you would like to play, pick a number bigger than 0 ")
+    print(" or press <Enter> for continuous mode ")
     print()
-    print("For each round, choose from Rock / Paper / Scissors (R / P / S) or xxx to quit ")
+    print(" For each round, choose from Rock / Paper / Scissors (R / P / S) or xxx to quit ")
     print()
-    print("Rock beats Scissors")
-    print("Scissors beats Paper")
-    print("Paper Beats Rock")
-    print("***** Have Fun! *****")
-    print()
+    print(" Rock beats Scissors")
+    print(" Scissors beats Paper")
+    print(" Paper Beats Rock")
+    print(" ***** Have Fun! *****")
     return ""
 
 def yes_no(question):
@@ -76,7 +75,7 @@ def yes_no(question):
 
 def statement_generator(statement, decoration):
 
-   sides = decoration * 3
+   sides= decoration * 3
 
    statement = "{} {} {}".format(sides, statement, sides)
    top_bottom = decoration * len(statement)
@@ -88,7 +87,11 @@ def statement_generator(statement, decoration):
    return ""
 
 # Main routine goes here
+played_before = yes_no(" Have you played this game before? ")
+print()
 
+if played_before == "no":
+    instructions()
 # lists of valid responses
 yes_no_list = ["yes", "no"]
 rps_list = ["rock", "paper", "scissors", "xxx"]
@@ -97,12 +100,8 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 game_summary = []
 
 # ask user if they have played before
-# If 'no', show instructions
-played_before = yes_no("Do you want to read the instructions? ")
-print()
+# If 'yes', show instructions
 
-if played_before == "yes":
-    instructions()
 # ask users for # of rounds then loop...
 rounds_played = 0
 
@@ -126,7 +125,7 @@ while end_game == "no":
     heading = "Continuous Mode: Round {}".format(rounds_played + 1)
   else:
     heading = "Round {} of  {}".format(rounds_played + 1, rounds)
-  print()
+
   print(heading)
   print()
   choose_instruction = "Please choose rock (r), paper  (p) or scissors (s) or 'xxx to exit: "
@@ -149,11 +148,9 @@ while end_game == "no":
   comp_choice = random.choice(rps_list[:-1])
   print("Comp Choice: ", comp_choice)
 
-
   # Compare choices
   if comp_choice == choose:
     result = "tie"
-    result_decoration  = "="
     feedback = "It's a tie"
     rounds_drawn += 1
   elif choose == "rock" and comp_choice == "scissors":
@@ -164,23 +161,16 @@ while end_game == "no":
     result = "won"
   else:
     result = "lost"
-    result_decoration  = "v"
     rounds_lost += 1
 
-  # 'won' Decoration (not above to avoid repeating code)...
-  if result == "won":
-    result_decoration  = "*"
-
-  feedback = "{} vs {}  - you {}".format(choose, comp_choice, result)
-  statement_generator(feedback, result_decoration)
-  print()
+  if result != "tie":
+    feedback = "{} vs {}  - you {}".format(choose, comp_choice, result)
 
   # calculate rounds won...
   rounds_won = rounds_played - rounds_drawn - rounds_lost
 
   print()
   print("Won: {}, lost: {}, drawn: {}".format(rounds_won, rounds_lost, rounds_drawn))
-  print()
 
   # output results...
   print(feedback)
